@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Mission Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>🚀 Space Mission Simulator</h1>
+        </header>
+        <main>
+            <section id="join-section">
+                <h2>Join Mission</h2>
+                <form id="join-form">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" required>
+                    <label for="team">Team:</label>
+                    <select id="team" required>
+                        <option value="" disabled selected>Please select a team</option>
+                        <!-- Populated by script -->
+                    </select>
+                    <label for="role">Role:</label>
+                    <select id="role" required disabled>
+                        <option value="" disabled selected>Please select a role</option>
+                        <!-- Populated by script -->
+                    </select>
+                    <label for="mission-id">Mission Code:</label>
+                    <input type="text" id="mission-id" value="default" required>
+                    <button type="submit">Join</button>
+                </form>
+            </section>
+            <section id="game-section" style="display:none;">
+                <div id="user-panel">
+                    <span id="user-info"></span>
+                    <button id="ready-btn">Ready</button>
+                    <span id="state-indicator"></span>
+                </div>
+                <div class="flex-row">
+                    <aside id="users-list">
+                        <h3>Team Members</h3>
+                        <ul id="user-list"></ul>
+                    </aside>
+                    <section id="mission-panel">
+                        <h3>Mission Timeline</h3>
+                        <ol id="timeline-list"></ol>
+                        <div id="emergency-panel" style="display:none;"></div>
+                    </section>
+                </div>
+                <div id="tasks-section">
+                    <h3>Role Tasks</h3>
+                    <ul id="tasks-list"></ul>
+                </div>
+                <section id="chat-section">
+                    <h3>Chat/Comms</h3>
+                    <div id="chat-history"></div>
+                    <form id="chat-form">
+                        <input type="text" id="chat-msg" placeholder="Type your message ..." autocomplete="off" required maxlength="200">
+                        <select id="chat-channel">
+                            <option value="all">Team</option>
+                            <option value="cross">To Other Team</option>
+                        </select>
+                        <button type="submit">Send</button>
+                    </form>
+                </section>
+            </section>
+        </main>
+        <footer>
+            <span>Created for an educational, collaborative mission sim experience.</span>
+        </footer>
+    </div>
+    <script src="client.js"></script>
+</body>
+</html>

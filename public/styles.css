@@ -1,0 +1,229 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #09092a 0%, #284877 100%);
+    color: #e0e6f0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+#container {
+    margin: 0 auto;
+    max-width: 1100px;
+    background: rgba(15, 18, 37, 0.96);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    padding: 32px 28px 18px 28px;
+    margin-top: 32px;
+}
+header, footer {
+    text-align: center;
+    margin-bottom: 18px;
+}
+header h1 {
+    color: #62d1fb;
+    margin-bottom: 0;
+}
+footer span {
+    color: #5774a6;
+    font-size: 0.95em;
+}
+main {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+#join-section {
+    padding: 15px 0;
+    margin-bottom: 15px;
+}
+#join-form label {
+    margin-top: 6px;
+    display:block;
+    font-size: 1em;
+}
+#join-form input,
+#join-form select {
+    width: 220px;
+    margin-bottom: 8px;
+    border-radius: 7px;
+    border: 1px solid #3c4b70;
+    background: #232b43;
+    color: #e0e6f0;
+    font-size: 1em;
+    padding: 5px 8px;
+}
+#join-form button {
+    background: #31e3ac;
+    color: #14243a;
+    font-weight: bold;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 7px;
+    font-size: 1em;
+    margin-top: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#join-form button:hover {
+    background: #38b599;
+}
+.flex-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 10px;
+}
+#users-list {
+    flex: 1 1 190px;
+    background: #182040;
+    padding: 12px 12px 8px 10px;
+    border-radius: 9px;
+    min-width: 150px;
+}
+#user-list li {
+    padding: 4px 0;
+    color: #8bf7cc;
+    font-size: 0.95em;
+}
+#mission-panel {
+    flex: 3 1 600px;
+    background: #141a33;
+    padding: 12px 18px 12px 14px;
+    border-radius: 10px;
+    min-width: 320px;
+}
+#timeline-list {
+    list-style-type: decimal;
+    padding-left: 24px;
+    color: #ffd496;
+}
+#timeline-list li {
+    padding: 2.5px 0;
+    font-size: 1.08em;
+}
+#timeline-list li.complete {
+    color: #66fa93;
+    text-decoration: line-through;
+}
+#emergency-panel {
+    margin: 8px 0 0 0;
+    padding: 8px 11px;
+    border-radius: 7px;
+    font-size: 1.04em;
+    background: #624057bd;
+    color: #ffd6e2;
+    border-left: 6px solid #ff5286;
+    display: block;
+}
+#tasks-section {
+    background: #21294c;
+    padding: 8px 18px;
+    border-radius: 8px;
+    margin: 10px 0 18px 0;
+}
+#tasks-list li {
+    padding: 6px 0 3px 2px;
+    font-size: 1.02em;
+    color: #baf2ff;
+}
+#tasks-list button {
+    margin-left: 12px;
+    background: #ffd663;
+    border: none;
+    color: #494100;
+    padding: 4px 13px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#tasks-list button:disabled {
+    background: #d7d4bb;
+    color: #aeaeae;
+}
+#tasks-list button:not(:disabled):hover {
+    background: #f9a826;
+}
+#chat-section {
+    background: #191e30;
+    border-radius: 8px;
+    padding: 10px 18px 12px 14px;
+    max-width: 510px;
+    margin: 0 auto;
+}
+#chat-history {
+    background: #12142e;
+    height: 110px;
+    overflow-y: auto;
+    border-radius: 6px;
+    padding: 8px;
+    color: #fff6da;
+    margin-bottom: 7px;
+    font-size: 0.99em;
+}
+#chat-form {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+#chat-form input[type=text] {
+    flex: 1 1 115px;
+    padding: 7px;
+    border-radius: 5px;
+    border: none;
+}
+#chat-form select {
+    background: #3e465f;
+    color: #eaf2fb;
+    border: none;
+    border-radius: 4px;
+}
+#chat-form button {
+    background: #51dbfc;
+    color: #12324a;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#chat-form button:hover {
+    background: #14b8e6;
+}
+#user-panel {
+    margin-bottom: 8px;
+    font-size: 1.03em;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+#ready-btn {
+    background: #98fa63;
+    color: #184328;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 14px;
+    font-weight: bold;
+    font-size: 1em;
+    margin-left: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#ready-btn:hover {
+    background: #4be26f;
+}
+#state-indicator {
+    font-weight: bold;
+    color: #ebb785;
+}
+@media (max-width: 850px) {
+    #container {
+        padding: 10px 2vw 12px 2vw;
+    }
+    .flex-row {
+        flex-direction: column;
+    }
+    #chat-section {
+        max-width: 99vw;
+    }
+}
