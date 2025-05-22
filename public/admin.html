@@ -15,20 +15,13 @@
         }
         button[disabled] { opacity: 0.5; cursor: default; }
         .inline { display: inline-block; }
-        input[type=password] { border-radius:4px; border:none; padding: 0.25em; }
+        #sessionSelect { margin-bottom: 2em; }
     </style>
 </head>
 <body>
 <h1>Space Mission Admin Panel</h1>
 
-<div id="auth" style="margin-bottom:2em">
-    <label>
-        Admin Password:
-        <input type="password" id="adminpw" />
-    </label>
-    <button onclick="loginAdmin()">Login</button>
-    <span id="authFail" style="color:#f36; display:none;">Incorrect password</span>
-</div>
+<div id="sessionSelect"></div>
 
 <div id="panel" style="display:none">
     <h2>Mission State</h2>

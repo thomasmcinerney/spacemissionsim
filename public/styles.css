@@ -1,3 +1,4 @@
+/* Existing styles ... */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: linear-gradient(120deg, #09092a 0%, #284877 100%);
@@ -216,6 +217,53 @@ main {
     font-weight: bold;
     color: #ebb785;
 }
+
+/* Cool Mission Complete Effects */
+.mission-complete-effects {
+    
+    pointer-events: none;
+    position: fixed;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: 99999;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 14px;
+    height: 16px;
+    border-radius: 4px;
+    opacity: 0.92;
+    animation: confetti-fall 2.6s linear forwards;
+}
+
+@keyframes confetti-fall {
+    to {
+        transform: translateY(85vh) rotateZ(360deg);
+        opacity: 0.4;
+    }
+}
+
+.mission-complete-banner {
+    position: fixed;
+    top: 28vh;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 2.8em;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #fff6da;
+    text-shadow: 0px 0px 14px #55ffd1, 2px 2px 0 #21294c;
+    animation: banner-pop 1.4s cubic-bezier(.77,-0.12,.61,1.55);
+    z-index: 100000;
+    pointer-events: none;
+}
+
+@keyframes banner-pop {
+    0%   { transform: scale(0.1); opacity: 0; }
+    75%  { transform: scale(1.13); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 @media (max-width: 850px) {
     #container {
         padding: 10px 2vw 12px 2vw;
@@ -225,5 +273,9 @@ main {
     }
     #chat-section {
         max-width: 99vw;
+    }
+    .mission-complete-banner {
+        font-size: 2em;
+        top: 22vh;
     }
 }

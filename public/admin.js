@@ -1,32 +1,75 @@
-let ws, adminpw = "";
+let ws;
 let missionStages = [], missionState = {}, missionEvents = [];
-
-function loginAdmin() {
-    adminpw = document.getElementById("adminpw").value;
-    connectWS();
-}
+let sessionsList = [], selectedSession = null;
+let panelLoadedFor = null;
 
 function connectWS() {
     if (ws) ws.close();
     ws = new WebSocket(location.origin.replace('http','ws') + '/ws');
     ws.onopen = () => {
-        ws.send(JSON.stringify({ type: 'admin_auth', password: adminpw }));
+        ws.send(JSON.stringify({ type: 'admin_auth' }));
     };
     ws.onmessage = (msg) => {
         const data = JSON.parse(msg.data);
-        if (data.type === 'admin_fail') {
-            document.getElementById('authFail').style.display = '';
-            document.getElementById('panel').style.display = 'none';
+        if (data.type === 'session_list') {
+            sessionsList = data.sessions;
+            showSessionSelect();
         } else if (data.type === 'admin_ok') {
-            document.getElementById('auth').style.display = 'none';
             document.getElementById('panel').style.display = '';
             reloadPanel(data);
+            panelLoadedFor = data.missionId;
         } else if (data.type === 'mission_update') {
-            reloadPanel(data);
+            if (panelLoadedFor === data.missionId) {
+              reloadPanel(data);
+            }
         } else if (data.type === 'status') {
             flashMsg(data.message, data.good);
         }
     };
+    ws.onclose = () => {
+        setTimeout(() => {
+            connectWS();
+            flashMsg('Lost admin connection, retrying...', false);
+        }, 2000);
+    };
+}
+
+function showSessionSelect() {
+    const sessionDiv = document.getElementById('sessionSelect');
+    sessionDiv.innerHTML = '';
+    // Loading state or empty
+    if (!sessionsList.length) {
+        sessionDiv.innerText = 'No active games. Start a game as a player.';
+        document.getElementById('panel').style.display = 'none';
+        panelLoadedFor = null;
+        return;
+    }
+    const sel = document.createElement('select');
+    sel.id = 'sessionDropdown';
+    sel.innerHTML = sessionsList.map(s =>
+        `<option value="${s.missionId}">${s.missionId} (${s.state}, users: ${s.numUsers}, stage: ${(s.stageIdx+1)||1})</option>`
+    ).join('');
+    sel.onchange = () => {
+        if (sel.value !== panelLoadedFor) {
+            selectSession(sel.value);
+        }
+    };
+    sessionDiv.appendChild(sel);
+    // If only one session and not loaded, auto-select it
+    if (sessionsList.length === 1 && panelLoadedFor !== sessionsList[0].missionId) {
+        selectSession(sessionsList[0].missionId);
+    }
+    // Otherwise, blank panel until changed
+    if (!panelLoadedFor) {
+        document.getElementById('panel').style.display = 'none';
+    }
+}
+
+function selectSession(missionId) {
+    selectedSession = missionId;
+    ws.send(JSON.stringify({ type: 'admin_select_session', missionId }));
+    document.getElementById('panel').style.display = 'none';
+    panelLoadedFor = null;
 }
 
 function reloadPanel(data) {
@@ -49,7 +92,8 @@ function renderStages() {
         head.innerHTML = `<strong>Stage ${i+1}: ${stage.name||''}</strong> <span style='color:${stage.complete?'#9f6':'#fd6'}'>${stage.complete?'(Complete)':'(Active)'}</span>`;
         block.appendChild(head);
         if (stage.tasks) {
-            Object.entries(stage.tasks).forEach(([role, desc]) => {
+            Object.entries(stage.tasks).forEach(([role, descObj]) => {
+                const desc = descObj.description || descObj;
                 const row = document.createElement('div');
                 row.className = 'task-row';
                 const done = stage.tasksDone && stage.tasksDone[role];
@@ -63,7 +107,6 @@ function renderStages() {
                 block.appendChild(row);
             });
         }
-        // Stage-level controls
         const sbtn = document.createElement('button');
         sbtn.innerText = 'Force Complete Stage';
         sbtn.onclick = () => forceCompleteStage(i);
@@ -83,17 +126,20 @@ function flashMsg(msg,good) {
 }
 
 function toggleTask(stageIdx, role, done) {
-    ws.send(JSON.stringify({ type:'admin_task_update', stageIdx, role, done, password: adminpw }));
+    ws.send(JSON.stringify({ type:'admin_task_update', stageIdx, role, done }));
 }
 
 function forceCompleteStage(stageIdx) {
-    ws.send(JSON.stringify({ type:'admin_stage_complete', stageIdx, password: adminpw }));
+    ws.send(JSON.stringify({ type:'admin_stage_complete', stageIdx }));
 }
 
 function injectEvent() {
-    ws.send(JSON.stringify({ type:'admin_inject_event', password: adminpw }));
+    ws.send(JSON.stringify({ type:'admin_inject_event' }));
 }
 
 function skipStage() {
-    ws.send(JSON.stringify({ type:'admin_skip_stage', password: adminpw }));
+    ws.send(JSON.stringify({ type:'admin_skip_stage' }));
 }
+
+// On page load
+connectWS();
