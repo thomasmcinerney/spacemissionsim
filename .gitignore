@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Generated output and caches
+build/
+dist/
+coverage/
+.cache/
+.npm/
+__pycache__/
+*.log
+
+# Local credentials and configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local editor and operating system files
+.DS_Store
+.idea/
+.vscode/

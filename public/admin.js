@@ -97,3 +97,4 @@ function injectEvent() {
 function skipStage() {
     ws.send(JSON.stringify({ type:'admin_skip_stage', password: adminpw }));
 }
+

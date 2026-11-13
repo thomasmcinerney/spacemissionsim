@@ -260,3 +260,4 @@ function renderEventPanel(events, hide) {
     emergencyPanel.innerHTML = `<strong>\u26a0\ufe0f Emergency!</strong><br>${events.map(ev => ev.name + ': ' + ev.desc).join('<br>')}`;
     emergencyPanel.style.display = '';
 }
+

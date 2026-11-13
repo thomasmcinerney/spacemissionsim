@@ -64,7 +64,7 @@ function allCurrentSessionRoles(session) {
     return Object.values(session.users).map(u => u.role);
 }
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'missionadmin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 let adminClients = new Set();
 
 function broadcastAdminUpdate(session) {
@@ -136,7 +136,7 @@ wss.on('connection', (ws, req) => {
 
         // --- ADMIN PANEL API ---
         if (msg.type === 'admin_auth') {
-            if (msg.password === ADMIN_PASSWORD) {
+            if (ADMIN_PASSWORD && msg.password === ADMIN_PASSWORD) {
                 isAdmin = true;
                 adminClients.add(ws);
                 // Send current mission data for all active sessions (for now: just first session)
@@ -289,3 +289,4 @@ server.listen(PORT, () => {
     console.log('Space Mission Simulator server running on http://localhost:' + PORT);
     console.log('Admin panel at http://localhost:' + PORT + '/admin.html');
 });
+
